@@ -9,12 +9,10 @@ const createCandidateFunc = async (req, res, next) => {
     const candidates = await prisma.candidates.create({
       data,
     });
-    
 
     res.status(201).json({
       candidates,
     });
-   
   } catch (error) {
     console.log(error);
   }
@@ -27,7 +25,6 @@ const getSingleCandidateFunc = async (req, res, next) => {
       where: {
         id,
       },
-    
     });
     res.status(200).json({
       candidate,
@@ -62,7 +59,7 @@ const getCandidateByPositionId = async (req, res, next) => {
         positionsId,
       },
     });
-    res.status(200).json(candidate);
+    res.status(200).json({ candidate });
   } catch (error) {
     console.log(error);
   }
@@ -70,15 +67,14 @@ const getCandidateByPositionId = async (req, res, next) => {
 
 const removeCandidateById = async (req, res, next) => {
   const id = req.params.id;
-  
+
   try {
     const candidate = await prisma.candidates.delete({
       where: {
         id,
       },
-  
     });
-    res.status(200).send("Candidate has been deleted")
+    res.status(201).json({ candidate });
   } catch (error) {
     console.log(error);
   }
