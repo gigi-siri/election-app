@@ -11,15 +11,15 @@ datasource db {
 }
 
 model voters {
-  studentId    String   @id @map("_id")
-  studentsName String
-  email        String
-  telephone    String?
-  password     String
-  del_flg      Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  voting       voting[]
+  studentId   String   @id @map("_id")
+  studentName String
+  email       String
+  telephone   String?
+  password    String
+  del_flg     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  voting      voting[]
 }
 
 model positions {
