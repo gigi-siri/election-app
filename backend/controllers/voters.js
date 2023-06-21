@@ -72,9 +72,12 @@ const deleteVoter = async (req, res, next) => {
         studentId,
       },
     });
-    res.status(201).json(voters, { message: " this voter has been removed" });
+    res.status(201).json({ voters, message: " this voter has been removed" });
   } catch (error) {
     console.log(error);
+    res.status(400).json({
+      message: error.message,
+    });
   }
 };
 module.exports = {
