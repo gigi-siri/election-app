@@ -1,33 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
 import Card from "../../components/card";
-import { SaveVoter } from "../../services/voters";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { GetVoterByStudentId, SaveVoter } from "../../services/voters";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddVoter = () => {
+const EditVoter = () => {
   const navigate = useNavigate();
+  const { studentId } = useParams();
   const [state, setState] = useState({
     studentId: "",
     studentName: "",
     email: "",
     telephone: "",
     password: "",
-    // jedfd: "",
   });
+
+  useEffect(() => {
+    const LoadStudent = async () => {
+      const student = await GetVoterByStudentId(studentId);
+      const voter = student.data;
+      setState((prevState) => {
+        return {
+          ...prevState,
+          studentId: voter.studentId,
+          studentName: voter.studentName,
+          email: voter.email,
+          password: voter.password,
+          telephone: voter.telephone,
+        };
+      });
+    };
+    LoadStudent();
+  }, [studentId]);
 
   const handleClick = async () => {
     // console.log(state);
-    const res = await SaveVoter(state);
-    console.log(res);
-    if (res?.status === 201) {
-      toast.success("Voter Saved Successfully");
-      navigate("/voters");
-    } else {
-      toast.error("Voter not saved");
-    }
-    console.log(res);
+    // const res = await SaveVoter(state);
+    // console.log(res);
+    navigate("/voters");
   };
 
   return (
@@ -38,6 +49,7 @@ const AddVoter = () => {
           id="studentId"
           type="text"
           title="Student ID"
+          value={state.studentId}
           onChange={(e) => {
             setState((prevState) => {
               return { ...prevState, studentId: e.target.value };
@@ -50,6 +62,7 @@ const AddVoter = () => {
           id="studentName"
           type="text"
           title="Student Name"
+          value={state.studentName}
           onChange={(e) => {
             setState((prevState) => {
               return { ...prevState, studentName: e.target.value };
@@ -63,6 +76,7 @@ const AddVoter = () => {
           id="email"
           type="email"
           title="Email"
+          value={state.email}
           onChange={(e) => {
             setState((prevState) => {
               return { ...prevState, email: e.target.value };
@@ -76,6 +90,7 @@ const AddVoter = () => {
           id="telephone"
           type="tel"
           title="Telephone"
+          value={state.telephone}
           onChange={(e) => {
             setState((prevState) => {
               return { ...prevState, telephone: e.target.value };
@@ -89,6 +104,7 @@ const AddVoter = () => {
           id="password"
           type="password"
           title="Password"
+          value={state.password}
           onChange={(e) => {
             setState((prevState) => {
               return { ...prevState, password: e.target.value };
@@ -96,10 +112,10 @@ const AddVoter = () => {
           }}
         />
 
-        <Button type="button" title="Submit" onClick={handleClick} />
+        <Button type="button" title="Update" onClick={handleClick} />
       </form>
     </Card>
   );
 };
 
-export default AddVoter;
+export default EditVoter;

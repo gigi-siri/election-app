@@ -8,6 +8,7 @@ const Input = (props) => {
         {props.title}
       </label>
       <input
+        value={props.value}
         type={props.type}
         name={props.name}
         className="form-control"

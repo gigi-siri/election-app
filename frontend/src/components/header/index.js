@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = ({ title }) => {
+export const HeaderLarge = ({ title }) => {
   return (
     <div className="jumbotron jumbotron my-5">
       <div className="container">
@@ -10,4 +10,12 @@ const Header = ({ title }) => {
   );
 };
 
-export default Header;
+export const HeaderSmall = ({ title }) => {
+  return (
+    <div className="jumbotron jumbotron my-5">
+      <div className="container">
+        <h1 className=" text-center ">{title}</h1>
+      </div>
+    </div>
+  );
+};

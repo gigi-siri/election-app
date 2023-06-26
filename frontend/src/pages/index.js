@@ -1,15 +1,18 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "./dashboard";
+import Dashboard from "./Dashboard";
 import Voters from "./voters";
 import AddVoter from "./voters/add";
 import VoterList from "./voters/list";
-import Candidates from "./candidates";
+
+import Candidates from "./candidates/index";
 import AddCandidates from "./candidates/add";
 import CandidateList from "./candidates/list";
+
 import Positions from "./positions";
 import AddPositions from "./positions/add";
 import PositionsList from "./positions/list";
+import EditVoter from "./voters/edit";
 
 const MainApp = () => {
   return (
@@ -19,7 +22,9 @@ const MainApp = () => {
         <Route index element={<Dashboard />} />
 
         <Route path="voters" element={<Voters />}>
+          <Route index element={<VoterList />} />
           <Route path="add" element={<AddVoter />} />
+          <Route path="edit/:studentId" element={<EditVoter />} />
           <Route path="list" element={<VoterList />} />
         </Route>
 
